@@ -1,0 +1,42 @@
+{
+  "name": "Exity",
+  "description": "The way to intercept live HTTP requests and responses based upon a URL pattern",
+  "manifest_version": 2,
+  "version": "1.2",
+   "icons": {
+    "48": "icons/play48.png"
+    , "96": "icons/play96.png"
+  },
+  "author": "Cyd",
+  "applications": {
+    "gecko": {
+      "id": "exity@9bis.com",
+       "strict_min_version": "57.0"
+     }
+  },
+  "browser_action": {
+    "default_icon": "icons/play.svg",
+    "default_title": "Exity",
+    "default_popup": "popup/exity.html"
+  },
+  "options_ui": {
+    "page": "settings/options.html",
+    "chrome_style": true
+  },
+  "permissions": [
+    "activeTab",
+    "browsingData",
+    "clipboardRead",
+    "contextMenus",
+    "notifications",
+    "storage",
+    "tabs",
+    "unlimitedStorage",
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["include/string.js","background.js"]
+  }
+}

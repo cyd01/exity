@@ -1,0 +1,36 @@
+body { 
+	width: 600px;
+	height: 500px; 
+	font-family: "Comic Sans MS", cursive;
+	background-color: #e3e3e3;
+}
+h1 { 
+	font-family: "Comic Sans MS", cursive;
+}
+textarea { 
+	width: 80%; height: 90%; 
+	font-family: "Courrier New",monospace;
+	font-size: small;
+	border-width: 0px;
+}
+
+.badge_copy { background-color: #6cbd7d; }
+.badge_save { background-color: #d34836; }
+.badge_clear { background-color: gray; }
+.badge {
+  border-radius: 5px;
+  border:none ;
+  color: #f3f3f6;
+  font:Bold 13px Arial;
+  line-height: normal; 
+  text-transform: uppercase; 
+  width: 70px; 
+  display: inline-block; 
+  font-size: 12px; 
+  min-width: 10px; 
+  padding : 4px 0 4px 0;
+  text-align: center; 
+  vertical-align: baseline; 
+  white-space: nowrap; 
+  cursor: pointer;
+}
