@@ -88,7 +88,10 @@ function doInit(details,pattern) {
 	
 		if( details.requestBody ) {
 			if( details.requestBody.raw ) {
-				req[requestId%mm].request.body = JSON.stringify(details.requestBody.raw) ;
+				if( details.requestBody.raw[0] ) {
+					var enc = new TextDecoder("utf-8");
+					req[requestId%mm].request.body = enc.decode(details.requestBody.raw[0].bytes) ;				
+				}
 			} else if( details.requestBody.formData ) {
 				req[requestId%mm].request.body = "" ;
 				if( Object.keys(details.requestBody.formData).length>0 ) {

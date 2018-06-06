@@ -2,7 +2,7 @@
   "name": "Exity",
   "description": "The way to intercept live HTTP requests and responses based upon a URL pattern",
   "manifest_version": 2,
-  "version": "1.2",
+  "version": "1.3",
    "icons": {
     "48": "icons/play48.png"
     , "96": "icons/play96.png"
