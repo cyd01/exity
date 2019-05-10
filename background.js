@@ -1,7 +1,7 @@
 /*
- Default parameters initialisation
- pattern: "^.*$" 
- pattern: "^.+/(digishop.|mapi|apigw|itf-gateway)/.*$"
+  Default parameters initialisation
+  pattern: "^.*$" 
+  pattern: "^.+/(digishop.|mapi|apigw|itf-gateway)/.*$"
 */
 var defaultSettings = {
   pattern: "^.*$" 
@@ -10,6 +10,10 @@ var defaultSettings = {
   , result: ""
 };
 
+/*
+  Debug mode flag
+*/
+var debug = false ;
 
 /*
   Define browser
@@ -20,15 +24,15 @@ var browser = browser || chrome ;
 browser.storage.local.set({ result: "" }) ; // To clear result only
 
 /*
-Generic error logger.
+  Generic error logger.
 */
 function onError(e) {
   console.error(e);
 }
 
 /*
-On startup, check whether we have stored settings.
-If we don't, then store the default settings.
+  On startup, check whether we have stored settings.
+  If we don't, then store the default settings.
 */
 function checkStoredSettings(storedSettings) {
   if ( !storedSettings.pattern || storedSettings.pattern.length==0 ) {
@@ -192,6 +196,7 @@ function convStr(r) {
 	var str = "" ;
 	str = "\n-- "+r.request.uri+" -----------------------------------------------------------------\n" ;
 	str += r.request.method + " " + r.request.uri.replace(/^http(s)?:\/\//,"").replace(/^[^/]*/,"") + "\n" ;
+	if( r.request.headers )
 	if( r.request.headers.length>0 ) {
 		for( i=0 ; i<r.request.headers.length ; i++ ) {
 			str += r.request.headers[i].name + ": " +r.request.headers[i].value + "\n" ;
@@ -213,7 +218,9 @@ function convStr(r) {
 	return str ;
 }
 
-/* Function to sort remove null value */
+/* 
+  Function to sort remove null value 
+*/
 function uniq(a) {
 	return a.sort().filter(function(item) {
 		return item!=null ;
@@ -235,7 +242,7 @@ function doSave( r ) {
 					item.result = item.result + tab[i] + '\r\n' ;
 				}
 			}
-			//console.log( convStr(r) ) ;
+			if( debug ) { console.log( convStr(r) ) ; }
 			browser.storage.local.set(item) ;
 		}
 		, function(error) { console.log(`Error: ${error}`); } 
@@ -243,7 +250,9 @@ function doSave( r ) {
 	}
 }
 
-/* Pour sauvegarder on est obligé de laisser passer un délai pour être sûr d'avoir reçu le body de la reponse */
+/* 
+  Pour sauvegarder on est obligé de laisser passer un délai pour être sûr d'avoir reçu le body de la reponse 
+*/
 function end(requestId,nb) {
 	if( (req[requestId%mm].status==false)&&(nb<defaultSettings.timeout) ) {
 		setTimeout( function(){ end(requestId,nb+1) ; }, 1000 ) ; 
@@ -255,7 +264,7 @@ function end(requestId,nb) {
 
 function doCompleted(details) {
 	requestId = details.requestId ;
-	//printJSON(req);
+	if( debug ) { printJSON(req) ; }
 	if( req[requestId%mm] ) {
 		setTimeout( function(){ end(details.requestId,0) ; }, 200 ) ;
 	}
